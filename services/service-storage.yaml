@@ -1,0 +1,15 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: adams-service-storage
+  namespace: adams
+spec:
+  selector:
+    adams-service: storage 
+  type: LoadBalancer
+  ports:
+  - name: http-storage
+    port: 5005
+    targetPort: storage
+  externalIPs:
+    - "10.101.0.129"

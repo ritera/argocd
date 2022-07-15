@@ -1,0 +1,15 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: adams-service-pretrainedmodel
+  namespace: adams
+spec:
+  selector:
+    adams-service: pretrainedmodel 
+  type: LoadBalancer
+  ports:
+  - name: http-pretrainedmodel
+    port: 5009
+    targetPort: pretrainedmodel
+  externalIPs:
+    - "10.101.0.127"

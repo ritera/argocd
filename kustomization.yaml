@@ -1,0 +1,27 @@
+resources:
+- configmap.yaml
+- ns.yaml
+- deployments/datapoolservice-deployment.yaml
+- deployments/datasetservice-deployment.yaml
+- deployments/frontend-deployment.yaml
+- deployments/imageitemservice-deployment.yaml
+- deployments/inferenceservice-deployment.yaml
+- deployments/licenseservice-deployment.yaml
+- deployments/notifyservice-deployment.yaml
+- deployments/pretrainedmodelservice-deployment.yaml
+- deployments/storageservice-deployment.yaml
+- deployments/trainservice-deployment.yaml
+- deployments/trainworker-deployment.yaml
+- deployments/userservice-deployment.yaml
+- services/service.yaml
+- services/service-datapool.yaml
+- services/service-dataset.yaml
+- services/service-frontend.yaml
+- services/service-imageitem.yaml
+- services/service-inference.yaml
+- services/service-license.yaml
+- services/service-notify.yaml
+- services/service-pretrainedmodel.yaml
+- services/service-storage.yaml
+- services/service-train.yaml
+- services/service-user.yaml

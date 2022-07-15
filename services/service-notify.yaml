@@ -1,0 +1,15 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: adams-service-notify
+  namespace: adams
+spec:
+  selector:
+    adams-service: notify 
+  type: LoadBalancer
+  ports:
+  - name: http-notify
+    port: 5004
+    targetPort: notify
+  externalIPs:
+    - "10.101.0.133"

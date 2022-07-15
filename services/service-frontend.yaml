@@ -1,0 +1,15 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: adams-service-frontend
+  namespace: adams
+spec:
+  selector:
+    adams-service: frontend 
+  type: LoadBalancer
+  ports:
+  - name: http-frontend
+    port: 80
+    targetPort: frontend
+  externalIPs:
+    - "10.101.0.123"

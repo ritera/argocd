@@ -1,0 +1,14 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: adams-service-user
+  namespace: adams
+spec:
+  selector:
+    adams-service: user 
+  type: LoadBalancer
+  ports:
+  - name: http-user
+    port: 5001
+  externalIPs:
+    - "10.101.0.121"

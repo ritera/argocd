@@ -1,0 +1,15 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: adams-service-train
+  namespace: adams
+spec:
+  selector:
+    adams-service: train 
+  type: LoadBalancer
+  ports:
+  - name: http-train
+    port: 5007
+    targetPort: train
+  externalIPs:
+    - "10.101.0.128"

@@ -1,0 +1,83 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: trainworker-deployment
+  namespace: adams
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: adams-service
+  template:
+    metadata:
+      labels:
+        app: adams-service
+        adams-service: trainworker
+        version: v1
+    spec:
+      containers:
+      - name: adams-trainworker
+        image: 10.100.1.32:5500/adams/trainworker:dev1.1
+        env:
+        - name: ConnectionStrings__MongoDb
+          valueFrom:
+            configMapKeyRef:
+              name: adams-configmap
+              key: ConnectionStrings__MongoDb
+  
+        - name: DATAPOOL_SERVICE_URL
+          valueFrom:
+            configMapKeyRef:
+              name: adams-configmap
+              key: ConnectionStrings__DataPoolService
+        - name: STORAGE_SERVICE_URL
+          valueFrom:
+            configMapKeyRef:
+              name: adams-configmap
+              key: ConnectionStrings__StorageService
+        - name: TRAIN_SERVICE_URL
+          valueFrom:
+            configMapKeyRef:
+              name: adams-configmap
+              key: ConnectionStrings__TrainService
+        - name: PRETRAINED_MODEL_SERVICE_URL
+          valueFrom:
+            configMapKeyRef:
+              name: adams-configmap
+              key: ConnectionStrings__PretrainedModelService
+        - name: ITEM_SERVICE_URL
+          valueFrom:
+            configMapKeyRef:
+              name: adams-configmap
+              key: ConnectionStrings__ImageItemService
+        - name: RABBITMQ_SERVICE_URL
+          valueFrom:
+            configMapKeyRef:
+              name: adams-configmap
+              key: RabbitMQ__HostName
+        - name: RABBITMQ_ID
+          valueFrom:
+            configMapKeyRef:
+              name: adams-configmap
+              key: RabbitMQ__UserName
+        - name: RABBITMQ_PW
+          valueFrom:
+            configMapKeyRef:
+              name: adams-configmap
+              key: RabbitMQ__Password
+        resources:
+          limits:
+            cpu: "4000m"
+            # memory: "32Gi"
+            memory: "16Gi"
+            nvidia.com/gpu: "1"
+      affinity:
+        podAntiAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+          - labelSelector:
+              matchExpressions:
+              - key: app
+                operator: In
+                values:
+                - train
+            topologyKey: kubernetes.io/hostname

@@ -1,0 +1,154 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: trainservice-deployment
+  namespace: adams
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: adams-service
+  template:
+    metadata:
+      labels:
+        app: adams-service
+        adams-service: train
+        version: v1
+    spec:
+      containers:
+      - name: adams-trainservice
+        image: 10.100.1.32:5500/adams/trainservice:dev1.1
+        ports:
+        - containerPort: 5007
+          name: train
+        env:
+        - name: ConnectionStrings__MongoDb
+          valueFrom:
+            configMapKeyRef:
+              name: adams-configmap
+              key: ConnectionStrings__MongoDb
+        - name: ConnectionStrings__UserService
+          valueFrom:
+            configMapKeyRef:
+              name: adams-configmap
+              key: ConnectionStrings__UserService
+        - name: ConnectionStrings__LicenseService
+          valueFrom:
+            configMapKeyRef:
+              name: adams-configmap
+              key: ConnectionStrings__LicenseService
+        - name: ConnectionStrings__DataPoolService
+          valueFrom:
+            configMapKeyRef:
+              name: adams-configmap
+              key: ConnectionStrings__DataPoolService
+        - name: ConnectionStrings__NotifyService
+          valueFrom:
+            configMapKeyRef:
+              name: adams-configmap
+              key: ConnectionStrings__NotifyService
+        - name: ConnectionStrings__StorageService
+          valueFrom:
+            configMapKeyRef:
+              name: adams-configmap
+              key: ConnectionStrings__StorageService
+        - name: ConnectionStrings__InferenceService
+          valueFrom:
+            configMapKeyRef:
+              name: adams-configmap
+              key: ConnectionStrings__InferenceService
+        - name: ConnectionStrings__TrainService
+          valueFrom:
+            configMapKeyRef:
+              name: adams-configmap
+              key: ConnectionStrings__TrainService
+        - name: ConnectionStrings__TestService
+          valueFrom:
+            configMapKeyRef:
+              name: adams-configmap
+              key: ConnectionStrings__TestService
+        - name: ConnectionStrings__PretrainedModelService
+          valueFrom:
+            configMapKeyRef:
+              name: adams-configmap
+              key: ConnectionStrings__PretrainedModelService
+        - name: ConnectionStrings__DatasetService
+          valueFrom:
+            configMapKeyRef:
+              name: adams-configmap
+              key: ConnectionStrings__DatasetService
+        - name: ConnectionStrings__ImageItemService
+          valueFrom:
+            configMapKeyRef:
+              name: adams-configmap
+              key: ConnectionStrings__ImageItemService
+        - name: ConnectionStrings__ApiGatewayService
+          valueFrom:
+            configMapKeyRef:
+              name: adams-configmap
+              key: ConnectionStrings__ApiGatewayService
+        - name: ConnectionStrings__redis
+          valueFrom:
+            configMapKeyRef:
+              name: adams-configmap
+              key: ConnectionStrings__redis
+        - name: ConnectionStrings__notify
+          valueFrom:
+            configMapKeyRef:
+              name: adams-configmap
+              key: ConnectionStrings__notify      
+        - name: Salt
+          valueFrom:
+            configMapKeyRef:
+              name: adams-configmap
+              key: Salt
+        - name: Minio__endpoint
+          valueFrom:
+            configMapKeyRef:
+              name: adams-configmap
+              key: Minio__endpoint
+        - name: Minio__accessKey
+          valueFrom:
+            configMapKeyRef:
+              name: adams-configmap
+              key: Minio__accessKey
+        - name: Minio__secretKey
+          valueFrom:
+            configMapKeyRef:
+              name: adams-configmap
+              key: Minio__secretKey
+        - name: RabbitMQ__HostName
+          valueFrom:
+            configMapKeyRef:
+              name: adams-configmap
+              key: RabbitMQ__HostName
+        - name: RabbitMQ__Port
+          valueFrom:
+            configMapKeyRef:
+              name: adams-configmap
+              key: RabbitMQ__Port
+        - name: RabbitMQ__UserName
+          valueFrom:
+            configMapKeyRef:
+              name: adams-configmap
+              key: RabbitMQ__UserName
+        - name: RabbitMQ__Password
+          valueFrom:
+            configMapKeyRef:
+              name: adams-configmap
+              key: RabbitMQ__Password
+        resources:
+          limits:
+            cpu: "4000m"
+            # memory: "32Gi"
+            memory: "16Gi"
+      # affinity:
+      #   podAntiAffinity:
+      #     requiredDuringSchedulingIgnoredDuringExecution:
+      #     - labelSelector:
+      #         matchExpressions:
+      #         - key: app
+      #           operator: In
+      #           values:
+      #           - train
+      #       topologyKey: kubernetes.io/hostname

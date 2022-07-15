@@ -1,0 +1,15 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: adams-service-dataset
+  namespace: adams
+spec:
+  selector:
+    adams-service: dataset 
+  type: LoadBalancer
+  ports:
+  - name: http-dataset
+    port: 5010
+    targetPort: dataset
+  externalIPs:
+    - "10.101.0.124"

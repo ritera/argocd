@@ -1,0 +1,34 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: adams-configmap
+  namespace: adams
+data:
+  ConnectionStrings__MongoDb: mongodb://10.101.0.110:27017
+  ConnectionStrings__UserService: http://adams-service-user:5001
+  ConnectionStrings__LicenseService: http://adams-service-license:5002
+  ConnectionStrings__DataPoolService: http://adams-service-datapool:5003
+  ConnectionStrings__NotifyService: http://adams-service-notify:5004
+  ConnectionStrings__StorageService: http://adams-service-storage:5005
+  ConnectionStrings__InferenceService: http://adams-service-inference:5006
+  ConnectionStrings__TrainService: http://adams-service-train:5007
+  ConnectionStrings__TestService: http://adams-service-test:5008
+  ConnectionStrings__PretrainedModelService: http://adams-service-pretrainedmodel:5009
+  ConnectionStrings__DatasetService: http://adams-service-dataset:5010
+  ConnectionStrings__ImageItemService: http://adams-service-imageitem:5011
+  ConnectionStrings__ApiGatewayService: http://adams-service-apigateway:5012
+  ConnectionStrings__redis: redis-cluster,password=laon0118!
+  ConnectionStrings__notify: http://laonpeople.admas.com/api/notify/LicenseHub
+ 
+  Salt: saltsaltsaltsaltsaltsaltsaltsalt
+  TokenExpireSeconds: "36000"
+  PackageLicensePath: "packageInfo/License.json"
+  REACT_APP_BASE_URL: http://laonpeople.adams.com/api
+  Minio__endpoint: "10.10.1.135:9000"
+  Minio__accessKey: "laonpeople"
+  Minio__secretKey: "laonpeople"
+  RabbitMQ__HostName: "10.10.1.135"
+  RabbitMQ__Port: "5672"
+  RabbitMQ__UserName: "laonpeople"
+  RabbitMQ__Password: "laon0118!"
+  

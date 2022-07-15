@@ -1,0 +1,15 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: adams-service-imageitem
+  namespace: adams
+spec:
+  selector:
+    adams-service: imageitem 
+  type: LoadBalancer
+  ports:
+  - name: http-imageitem
+    port: 5011
+    targetPort: imageitem
+  externalIPs:
+    - "10.101.0.125"

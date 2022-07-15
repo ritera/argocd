@@ -1,0 +1,15 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: adams-service-inference
+  namespace: adams
+spec:
+  selector:
+    adams-service: inference 
+  type: LoadBalancer
+  ports:
+  - name: http-inference
+    port: 5006
+    targetPort: inference
+  externalIPs:
+    - "10.101.0.131"

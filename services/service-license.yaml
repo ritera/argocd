@@ -1,0 +1,15 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: adams-service-license
+  namespace: adams
+spec:
+  selector:
+    adams-service: license 
+  type: LoadBalancer
+  ports:
+  - name: http-license
+    port: 5002
+    targetPort: license
+  externalIPs:
+    - "10.101.0.126"

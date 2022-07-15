@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: frontend-deployment
+  namespace: adams
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: adams-service
+  template:
+    metadata:
+      labels:
+        app: adams-service
+        adams-service: frontend
+        version: v1
+    spec:
+      containers:
+      - name: adams-frontend
+        image: 10.100.1.32:5500/adams/frontend:dev1.2
+        ports:
+        - containerPort: 80
+          name: frontend
+        env:
+        - name: REACT_APP_BASE_URL
+          valueFrom:
+            configMapKeyRef:
+              name: adams-configmap
+              key: REACT_APP_BASE_URL
+        resources:
+          limits:
+            cpu: "4000m"
+            # memory: "32Gi"
+            memory: "16Gi"
+      # affinity:
+      #   podAntiAffinity:
+      #     requiredDuringSchedulingIgnoredDuringExecution:
+      #     - labelSelector:
+      #         matchExpressions:
+      #         - key: app
+      #           operator: In
+      #           values:
+      #           - train
+      #       topologyKey: kubernetes.io/hostname
